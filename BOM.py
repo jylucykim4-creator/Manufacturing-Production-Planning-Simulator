@@ -13,6 +13,10 @@ bom = {
     }
 }
 
-print("Bill of Materials:")
+production_quantity = 10
+
+print(f"Materials required for {production_quantity} response devices:")
+
 for component, quantity in bom["Response Device"].items():
-    print(f"{component}: {quantity}")
+    required_quantity = quantity * production_quantity
+    print(f"{component}: {required_quantity}")
