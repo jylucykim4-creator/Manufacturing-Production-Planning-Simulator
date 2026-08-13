@@ -13,10 +13,29 @@ bom = {
     }
 }
 
+# Production plan
 production_quantity = 10
 
-print(f"Materials required for {production_quantity} response devices:")
+# Current inventory
+inventory = {
+    "Plastic Housing": 15,
+    "PCB": 8,
+    "Microcontroller": 12,
+    "RF Module": 10,
+    "LCD Display": 6,
+    "Button": 60,
+    "Battery": 15,
+    "Battery Contact": 25
+}
+
+print(f"Material requirements for {production_quantity} response devices:\n")
 
 for component, quantity in bom["Response Device"].items():
-    required_quantity = quantity * production_quantity
-    print(f"{component}: {required_quantity}")
+    required = quantity * production_quantity
+    available = inventory.get(component, 0)
+    shortage = max(required - available, 0)
+
+    print(f"{component}")
+    print(f"  Required: {required}")
+    print(f"  Available: {available}")
+    print(f"  Shortage: {shortage}\n")
