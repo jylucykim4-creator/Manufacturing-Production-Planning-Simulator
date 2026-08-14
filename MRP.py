@@ -30,10 +30,12 @@ for component, quantity_per_unit in bom.items():
     required = quantity_per_unit * production_quantity
     available = inventory.get(component, 0)
     shortage = max(required - available, 0)
+    recommended_order = shortage
 
     print(f"{component}:")
     print(f"  Required: {required}")
     print(f"  Available: {available}")
     print(f"  Shortage: {shortage}")
+    print(f"  Recommended Order: {recommended_order}")
     print()
-
+    
