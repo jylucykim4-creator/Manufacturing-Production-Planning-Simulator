@@ -24,11 +24,33 @@ inventory = {
     "Battery Contact": 25
 }
 
-print("=" * 50)
-print("PURCHASE ORDER")
-print("=" * 50)
+suppliers = {
+    "Plastic Housing": "ABC Plastics",
+    "PCB": "ElectroParts Inc.",
+    "Microcontroller": "MicroTech",
+    "RF Module": "Wireless Components",
+    "LCD Display": "DisplayWorks",
+    "Button": "Switch Supply Co.",
+    "Battery": "PowerCell",
+    "Battery Contact": "Metal Components"
+}
 
-total_items = 0
+unit_cost = {
+    "Plastic Housing": 2.50,
+    "PCB": 8.00,
+    "Microcontroller": 4.00,
+    "RF Module": 3.50,
+    "LCD Display": 6.00,
+    "Button": 0.50,
+    "Battery": 1.50,
+    "Battery Contact": 0.30
+}
+
+total_cost = 0
+
+print("=" * 60)
+print("PURCHASE ORDER")
+print("=" * 60)
 
 for component, quantity_per_unit in bom.items():
     required = quantity_per_unit * production_quantity
@@ -36,10 +58,16 @@ for component, quantity_per_unit in bom.items():
     shortage = max(required - available, 0)
 
     if shortage > 0:
-        print(f"{component}: {shortage} units")
-        total_items += shortage
+        cost = shortage * unit_cost[component]
+        total_cost += cost
 
-print("-" * 50)
-print(f"Total units to purchase: {total_items}")
-print("=" * 50)
+        print(f"\nComponent: {component}")
+        print(f"Supplier: {suppliers[component]}")
+        print(f"Order Quantity: {shortage}")
+        print(f"Unit Cost: ${unit_cost[component]:.2f}")
+        print(f"Total Cost: ${cost:.2f}")
+        print("Status: Pending")
 
+print("\n" + "=" * 60)
+print(f"TOTAL PURCHASE ORDER VALUE: ${total_cost:.2f}")
+print("=" * 60)
