@@ -1,41 +1,36 @@
-# Bill of Materials (BOM) for an iClicker-inspired classroom response device
+# Bill of Materials 
+# iClicker-inspired classroom response device
 
-bom = {
-    "Response Device": {
-        "Plastic Housing": 1,
-        "PCB": 1,
-        "Microcontroller": 1,
-        "RF Module": 1,
-        "LCD Display": 1,
-        "Button": 5,
-        "Battery": 2,
-        "Battery Contact": 2
-    }
+BOM = {
+    "Plastic Housing": 1,
+    "PCB": 1,
+    "Microcontroller": 1,
+    "RF Module": 1,
+    "LCD Display": 1,
+    "Button": 5,
+    "Battery": 2,
+    "Battery Contact": 2
 }
 
-# Production plan
-production_quantity = 10
 
-# Current inventory
-inventory = {
-    "Plastic Housing": 15,
-    "PCB": 8,
-    "Microcontroller": 12,
-    "RF Module": 10,
-    "LCD Display": 6,
-    "Button": 60,
-    "Battery": 15,
-    "Battery Contact": 25
-}
+def calculate_material_requirements(production_quantity):
+    """Calculate the materials required for a given production quantity."""
 
-print(f"Material requirements for {production_quantity} response devices:\n")
+    requirements = {}
 
-for component, quantity in bom["Response Device"].items():
-    required = quantity * production_quantity
-    available = inventory.get(component, 0)
-    shortage = max(required - available, 0)
+    for component, quantity_per_unit in BOM.items():
+        requirements[component] = quantity_per_unit * production_quantity
 
-    print(f"{component}")
-    print(f"  Required: {required}")
-    print(f"  Available: {available}")
-    print(f"  Shortage: {shortage}\n")
+    return requirements
+
+
+if __name__ == "__main__":
+    production_quantity = 10
+
+    requirements = calculate_material_requirements(production_quantity)
+
+    print(f"Materials required for {production_quantity} response devices:")
+
+    for component, quantity in requirements.items():
+        print(f"{component}: {quantity}")
+
