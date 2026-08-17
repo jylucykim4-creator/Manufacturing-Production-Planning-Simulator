@@ -1,15 +1,6 @@
-# Purchase Order Generator
+# Purchase Order Generation
 
-bom = {
-    "Plastic Housing": 1,
-    "PCB": 1,
-    "Microcontroller": 1,
-    "RF Module": 1,
-    "LCD Display": 1,
-    "Button": 5,
-    "Battery": 2,
-    "Battery Contact": 2
-}
+from bom import calculate_material_requirements
 
 production_quantity = 10
 
@@ -46,14 +37,15 @@ unit_cost = {
     "Battery Contact": 0.30
 }
 
+requirements = calculate_material_requirements(production_quantity)
+
 total_cost = 0
 
 print("=" * 60)
 print("PURCHASE ORDER")
 print("=" * 60)
 
-for component, quantity_per_unit in bom.items():
-    required = quantity_per_unit * production_quantity
+for component, required in requirements.items():
     available = inventory.get(component, 0)
     shortage = max(required - available, 0)
 
